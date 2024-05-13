@@ -6,6 +6,8 @@ DOCUMENTO DESTINADO UNICA E EXCLUSIVAMENTE PARA SALVAR TUDO QUE EU APRENDER
 
 */
 
+/*
+
 function t (){} // Utiizado par afunções
 
 var a = "Declaração de variável, não são tipadas"
@@ -37,3 +39,11 @@ lista.join(";") // muda o separador da lista
 setInterval(acao, tempo(ms)) // Cria um repetidor mediante intervalo.
 
 setTimeout(acao, tepoAteExecutar(ms)) // Cria um timeout
+
+var = Declara Variavel global
+
+let = Declara Variavel com escopo de bloco
+
+const = let mas constante.
+
+*/
