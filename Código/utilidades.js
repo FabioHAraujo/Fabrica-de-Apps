@@ -46,4 +46,12 @@ let = Declara Variavel com escopo de bloco
 
 const = let mas constante.
 
+objeto = {Nome: "Paulo", sobrenome: "Pedroso"}
+
+arrayDeObjetos = [
+    {Nome: "Paulo", sobrenome: "Pedroso"},
+    {Nome: "Maria", sobrenome: "Schutz"},
+    {Nome: "Daniel", sobrenome: "Dalagnol"},
+]
+
 */

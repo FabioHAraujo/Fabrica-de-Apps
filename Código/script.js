@@ -1,22 +1,15 @@
 
-// Objetos
 
-// let pessoa = {
-//     nome: "Matheus",
-//     idade: 26,
-//     altura: 1.85,
-//     cargo: "Programador Fullstack"
-// }
+// Template strings
 
-// let carro = {
-//     nome: "Golf 1.6",
-//     cor: "Branco", 
-//     potencia: "140cv"
-// }
+let nome = "Matheus";
+let sobrenome = "Fraga";
+let idade = 26;
 
-let usuarios = [
-    {nome: "Matheus", cargo: "Programador", status: "Ativo"},
-    {nome: "Maria", cargo: "Beckend", status: "Ativo"},
-    {nome: "Jose", cargo: "Gerente", status: "Inativo"},
-    {nome: "Carlos", cargo: "RH", status: "Ativo"}
-]
+// FORMA CANSATIVA
+// let mensagem = 'Meu nome é ' + nome + ' ' + sobrenome  + ' e eu tenho ' + idade + ' anos de idade.'
+
+
+let mensagem = `Meu nome é ${nome} ${sobrenome} e eu tenho ${idade} anos de idade`
+
+console.log(mensagem)
