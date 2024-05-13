@@ -33,3 +33,7 @@ lista.push(valor) // adiciona um valor à lista
 lista.shift(index) // tira da lista
 
 lista.join(";") // muda o separador da lista
+
+setInterval(acao, tempo(ms)) // Cria um repetidor mediante intervalo.
+
+setTimeout(acao, tepoAteExecutar(ms)) // Cria um timeout
