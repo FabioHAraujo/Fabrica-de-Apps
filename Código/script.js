@@ -1,48 +1,23 @@
-var area = document.getElementById("area")
+// Switch
 
-function entrar(){
-    var nome = prompt("Digite seu nome")
-
-
-    if (nome === null || nome === '') {
-        alert("Você não inseriu um nome válido")
-        area.innerHTML = "Clique no Botão para Acessar: "
-    } else{
-        area.innerHTML = "Bem-Vindo " + nome + " "
-
-        let botaoSair = document.createElement("button")
-        botaoSair.innerText = "Sair da conta"
-        botaoSair.onclick = sair
-
-        area.appendChild(botaoSair)
+function pedir(){
+    var valor = prompt("Digite um valor de 1 a 4")
+    //switch(parseInt(valor)){ // ALTERNATIVAMENTE
+    switch(Number(valor)){
+        case 1:
+            alert("Você escolheu 1 - Suco")
+            break
+        case 2:
+            alert("Você escolheu 2 - Água Gelada")
+            break
+        case 3:
+            alert("Você escolheu 3 - Sorvete")
+            break
+        case 4:
+            alert("Você Chamou o Garçom")
+            break
+        default:
+            alert("Você não selecionou nada válido")
+            break
     }
-}
-
-function sair(){
-    alert("Até mais!")
-    area.innerHTML = "Clique no Botão para Acessar: "
-}
-
-function mediaAluno(nota1, nota2){
-    var media = (nota1+nota2)/2
-    if((nota1 || nota2)>10 || (nota1 || nota2)<0){
-        console.log("NOTAS INVÁLIDAS INSERIDAS")
-        return
-    }
-
-    if (media >= 7 && media <=10) {
-        console.log("Aluno aprovado com a média: " + media)
-    } else if (media <7 && media >=4) {
-        console.log("Aluno em recuperação com a média: " + media)
-    } else if (media >=0 && media <4) {
-        console.log("Aluno reprovado com a média: " + media)
-    } else {
-        console.log("Erro identificado no cálculo da média.\nDEBUG: notas inseridas = " + nota1 + " e " + nota2)
-    }
-}
-
-function aluno(nome, curso){
-    var mensagem = "Bem vindo " + nome + " ao curso de " + curso
-    
-    console.log(mensagem)
 }
