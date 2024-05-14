@@ -1,66 +1,41 @@
 
-let listElement = document.querySelector('#app ul')
-let inputElement = document.querySelector('#app input')
-let buttonElement = document.querySelector('#app button')
 
-let tarefas = JSON.parse(localStorage.getItem("@listaTarefas")) || [];
+//
 
-function renderTarefas(){
-  listElement.innerHTML = "";
+let pessoa = {
+    nome: "Paulo",
+    sobrenome: "Pedroso",
+    empresa: "Grupo Fintech",
+    cargo: "Programador Back-end"
+};
 
-  tarefas.map((todo)=>{
-    let liElement = document.createElement("li");
-    let tarefaText = document.createTextNode(todo+" ");
+// console.log(pessoa.nome)
 
-    let linkElement = document.createElement('a');
-    linkElement.setAttribute('href', '#');
+// const { nome:nomePessoa, sobrenome, empresa, cargo  } = pessoa
 
-    let linkText = document.createTextNode('Excluir');
-    linkElement.appendChild(linkText);
+// console.log(nomePessoa)
+// console.log(sobrenome)
+// console.log(empresa)
+// console.log(cargo)
 
-    let posicao = tarefas.indexOf(todo)
+let nomes = ['Matheus', 'Fábio', 'Pedro']
 
-    linkElement.setAttribute('onclick', `deletarTarefa(${posicao})`)
+let {0:nome} = nomes
 
-    liElement.appendChild(tarefaText);
-    liElement.appendChild(linkElement);
-    listElement.appendChild(liElement);
+/*
+    *Colocar 0:nome ou 0:qualquerCoisa só serve para renomear o atributo que se está sendo puxado, para fins de praticidade.
+    *Exemplo: Tendo um array de paradas de ônibus :
+    * let paradasDeOnibus = ["Centro", "Avenida Paulista", "Terminal Rodoviário", "Shopping Center", "Universidade"];
+    * Poderia ser tudo renomeado usando a função dos ':'
+    ? Exemplo: {0: centro} = paradasDeOnibus (dessa forma, seguimos chamando de centro, e não de 0)
+    ! Este recurso respeita as posições num array. Exemplo:
+    * lanches = ["Pastel", "Coxinha", "Ovo"]
+    * let [assado, frito, cozido] = lanches
+    * Dando um console log:
+    * console.log(assado) = imprime Pastel
+    * console.log(frito) = imprime Coxinha
+    * console.log(cozido) = imprime Ovo
 
+*/
 
-  })
-
-}
-
-renderTarefas();
-
-
-
-function adicionarTarefas(){
-  if(inputElement.value === ''){
-    alert("Digite alguma tarefa");
-    return false;
-  }else{
-    let novaTarefa = inputElement.value;
-
-    tarefas.push(novaTarefa);
-    inputElement.value = '';
-
-    renderTarefas();
-    salvarDados();
-
-  }
-
-}
-
-buttonElement.onclick = adicionarTarefas;
-
-function deletarTarefa(posicao){
-    tarefas.splice(posicao, 1);
-    renderTarefas();
-    salvarDados();
-
-}
-
-function salvarDados(){
-    localStorage.setItem('@listaTarefas', JSON.stringify(tarefas));
-}
+console.log(nome)
