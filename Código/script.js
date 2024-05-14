@@ -1,22 +1,31 @@
-// * FIND
+// * Funções Anônimas
 
-// let listagem = [5, 3, "Jose", 2, "Fábio", "Jose"];
+/*
+() => {}
 
-// let busca = listagem.find((item) => {
-//     //CONDIÇÃO:
-//     if(item === "Jose"){
-//         return console.log("ITEM ENCONTRADO COM SUCESSO")
-//     }
-// });
+1 - Os parênteses, onde a função recebe os parâmetros, assim como normalmente acontece em funções comuns
+2 - "seta" => - Causa do nome Arrow Functions, serve para "apontar" que se trata de uma função anônima e ocorre antes do bloco.
+3 - As chaves, que compoem o bloco
 
-// console.log(busca)
+*/
 
-// * FILTER
+function somar(a, b) {
+    let total = a+b
+    return total
+}
 
-let palavras = ["cachorro", "gato", "computador", "telefone", "janela", "mesa", "cadeira", "livro", "caneta", "teclado", "monitor", "banana"];
+console.log("Resultado da soma: "+somar(30,10))
 
-let resultado = palavras.filter((item) => {
-    return item.length <= 4
+function subtrair(a, b) {
+    let total = a-b
+    return total
+}
+
+console.log("Resultado da subtração: "+subtrair(30,10))
+
+
+let numeros = [1,3,5,10]
+
+numeros.map((item) => {
+    console.log(item)
 })
-
-console.log(resultado)
