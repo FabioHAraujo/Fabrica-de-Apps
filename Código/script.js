@@ -1,31 +1,19 @@
-// * Funções Anônimas
+// includes, startsWith, endsWith
 
-/*
-() => {}
+// let nomes = ["Fábio", "Felipe", "Rafael"]
 
-1 - Os parênteses, onde a função recebe os parâmetros, assim como normalmente acontece em funções comuns
-2 - "seta" => - Causa do nome Arrow Functions, serve para "apontar" que se trata de uma função anônima e ocorre antes do bloco.
-3 - As chaves, que compoem o bloco
+// console.log(nomes.includes("Fábio"))
 
-*/
+// if(nomes.includes("Felipe")){
+//     console.log("ESTÁ NA LISTA")
+// } else {
+//     console.log("NÃO ESTÁ NA LISTA")
+// }
 
-function somar(a, b) {
-    let total = a+b
-    return total
-}
+let nome = "Fábio"
 
-console.log("Resultado da soma: "+somar(30,10))
+console.log(nome.startsWith("Fáb"))
+console.log(nome.startsWith("fáb")) // É case sensitive, por isso retorna falso
 
-function subtrair(a, b) {
-    let total = a-b
-    return total
-}
-
-console.log("Resultado da subtração: "+subtrair(30,10))
-
-
-let numeros = [1,3,5,10]
-
-numeros.map((item) => {
-    console.log(item)
-})
+console.log(nome.endsWith("o"))
+console.log(nome.endsWith("O")) // Novamente, case sensitive
