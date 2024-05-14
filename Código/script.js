@@ -1,44 +1,18 @@
+// Rest Operator
 
+// function convidados(...nomes) {
+//     console.log("SEJAM BEM VINDOS CONVIDADOS!")
+//     console.log(nomes)
+// }
 
-// Spread Operator
+// convidados("Fábio", "Rafael", "Felipe", "Ana", "Daniel", "Álvaro")
 
-/*
-let primeiros = [1,2,3]
-
-let outros = [primeiros, 7,8,10]
-console.log(outros) //Imprime um array que tem 1 array na 0 e o restante dos numeros já definidos.
-
-outros = [...primeiros,7,8,10]
-console.log(outros) //Imprime um array que tem os números do primeiro array e o restante dos numeros já definidos.
-*/
-
-/*
-let pessoa = {
-    nome: "Carlos",
-    sobrenome: "Strassburger",
-    idade: 58,
-    cargo: "RH"
+function sorteador(...numeros) {
+    console.log(numeros);
+    
+    const numeroGerado = Math.round(Math.random() * numeros.length)
+    console.log(numeroGerado)
+    console.log("O Número Sorteado foi: "+ numeros[numeroGerado])
 }
 
-let novaPessoa = {
-    ...pessoa,
-    status: "ATIVO",
-    cidade: "Campo Grande / MS",
-    telefone: "67999884422"
-}
-
-console.log(novaPessoa)
-*/
-
-function novoUsuario(info) {
-    let dados = {
-        ...info,
-        status: "ATIVO",
-        inicio: "20/03/2012",
-        codigo: "141592"
-    }
-
-    console.log(dados)
-}
-
-novoUsuario({nome: "José", sobrenome: "Silva", cargo: "DEV"})
+sorteador(1, 4, 8, 6, 154, 44, 57, 7, 3, 99, 47, 11);
