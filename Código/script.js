@@ -1,37 +1,57 @@
 
-// Dev
+let listElement = document.querySelector('#app ul')
+let inputElement = document.querySelector('#app input')
+let buttonElement = document.querySelector('#app button')
 
-let adicionados = []
+let tarefas = [];
 
-function registra() {
-    let conteudo = document.getElementById('tarefa').value
-    if(adicionados.includes(conteudo)){
-        alert(`Você já adicionou ${conteudo} anteriormente, não é possível adicionar 2 vezes`)
-    } else {
-        alert(`Você adicionou ${conteudo} à lista de tarefas`)
+function renderTarefas(){
+  listElement.innerHTML = "";
 
-        let lista = document.getElementById('lista')
-        let novoItem = document.createElement('li')
-        let botaoExcluir = document.createElement('button')
+  tarefas.map((todo)=>{
+    let liElement = document.createElement("li");
+    let tarefaText = document.createTextNode(todo+" ");
 
-        botaoExcluir.textContent = "Excluir"
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', '#');
 
-        adicionados.push(conteudo)
-        let identificador  = adicionados.length - 1
+    let linkText = document.createTextNode('Excluir');
+    linkElement.appendChild(linkText);
 
-        novoItem.setAttribute('id', identificador)
-        novoItem.textContent = conteudo
-        botaoExcluir.setAttribute('onclick', 'excluir('+identificador+')')
+    let posicao = tarefas.indexOf(todo)
 
-        lista.appendChild(novoItem)
-        novoItem.appendChild(botaoExcluir)
-    }
+    linkElement.setAttribute('onclick', `deletarTarefa(${posicao})`)
+
+    liElement.appendChild(tarefaText);
+    liElement.appendChild(linkElement);
+    listElement.appendChild(liElement);
+
+
+  })
+
 }
-function excluir(identificador){
-    let lista = document.getElementById('lista')
-    let deletado = document.getElementById(identificador)
-    let texto = deletado.textContent
-    texto = texto.slice(0,-7)
-    alert(`Você removeu ${texto} da lista de tarefas`)
-    lista.removeChild(deletado)
+
+
+
+function adicionarTarefas(){
+  if(inputElement.value === ''){
+    alert("Digite alguma tarefa");
+    return false;
+  }else{
+    let novaTarefa = inputElement.value;
+
+    tarefas.push(novaTarefa);
+    inputElement.value = '';
+
+    renderTarefas();
+
+  }
+
+}
+
+buttonElement.onclick = adicionarTarefas;
+
+function deletarTarefa(posicao){
+    tarefas.splice(posicao, 1);
+    renderTarefas();
 }
