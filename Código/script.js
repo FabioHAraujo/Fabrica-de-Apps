@@ -1,41 +1,44 @@
 
 
-//
-
-let pessoa = {
-    nome: "Paulo",
-    sobrenome: "Pedroso",
-    empresa: "Grupo Fintech",
-    cargo: "Programador Back-end"
-};
-
-// console.log(pessoa.nome)
-
-// const { nome:nomePessoa, sobrenome, empresa, cargo  } = pessoa
-
-// console.log(nomePessoa)
-// console.log(sobrenome)
-// console.log(empresa)
-// console.log(cargo)
-
-let nomes = ['Matheus', 'Fábio', 'Pedro']
-
-let {0:nome} = nomes
+// Spread Operator
 
 /*
-    *Colocar 0:nome ou 0:qualquerCoisa só serve para renomear o atributo que se está sendo puxado, para fins de praticidade.
-    *Exemplo: Tendo um array de paradas de ônibus :
-    * let paradasDeOnibus = ["Centro", "Avenida Paulista", "Terminal Rodoviário", "Shopping Center", "Universidade"];
-    * Poderia ser tudo renomeado usando a função dos ':'
-    ? Exemplo: {0: centro} = paradasDeOnibus (dessa forma, seguimos chamando de centro, e não de 0)
-    ! Este recurso respeita as posições num array. Exemplo:
-    * lanches = ["Pastel", "Coxinha", "Ovo"]
-    * let [assado, frito, cozido] = lanches
-    * Dando um console log:
-    * console.log(assado) = imprime Pastel
-    * console.log(frito) = imprime Coxinha
-    * console.log(cozido) = imprime Ovo
+let primeiros = [1,2,3]
 
+let outros = [primeiros, 7,8,10]
+console.log(outros) //Imprime um array que tem 1 array na 0 e o restante dos numeros já definidos.
+
+outros = [...primeiros,7,8,10]
+console.log(outros) //Imprime um array que tem os números do primeiro array e o restante dos numeros já definidos.
 */
 
-console.log(nome)
+/*
+let pessoa = {
+    nome: "Carlos",
+    sobrenome: "Strassburger",
+    idade: 58,
+    cargo: "RH"
+}
+
+let novaPessoa = {
+    ...pessoa,
+    status: "ATIVO",
+    cidade: "Campo Grande / MS",
+    telefone: "67999884422"
+}
+
+console.log(novaPessoa)
+*/
+
+function novoUsuario(info) {
+    let dados = {
+        ...info,
+        status: "ATIVO",
+        inicio: "20/03/2012",
+        codigo: "141592"
+    }
+
+    console.log(dados)
+}
+
+novoUsuario({nome: "José", sobrenome: "Silva", cargo: "DEV"})
