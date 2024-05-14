@@ -1,23 +1,22 @@
-// * MAP = Percorrer um Array
+// * FIND
 
-// let lista = ['Matheus', 'José', 'Maria', 'Lucas']
+// let listagem = [5, 3, "Jose", 2, "Fábio", "Jose"];
 
-// lista.map((item, index) => {
-//     console.log(`PASSANDO: ${item}, posição ${index}`)
-// })
+// let busca = listagem.find((item) => {
+//     //CONDIÇÃO:
+//     if(item === "Jose"){
+//         return console.log("ITEM ENCONTRADO COM SUCESSO")
+//     }
+// });
 
-// * REDUCE = O reduce busca reduzir um Array
+// console.log(busca)
 
-let numeros = [5, 3, 2];
+// * FILTER
 
-let total = numeros.reduce((acumulador, numero, indice, original) => {
-    console.log(`${acumulador} - total até o momento`);
-    console.log(`${numero} - valor atual`);
-    console.log(`${indice} - posição no array`);
-    console.log(`${original} - array original`);
-    console.log("======================================");
+let palavras = ["cachorro", "gato", "computador", "telefone", "janela", "mesa", "cadeira", "livro", "caneta", "teclado", "monitor", "banana"];
 
-    return (acumulador += numero);
-});
+let resultado = palavras.filter((item) => {
+    return item.length <= 4
+})
 
-console.log("Total do Reduce: " + total);
+console.log(resultado)
