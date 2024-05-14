@@ -1,15 +1,37 @@
 
+// Dev
 
-// Template strings
+let adicionados = []
 
-let nome = "Matheus";
-let sobrenome = "Fraga";
-let idade = 26;
+function registra() {
+    let conteudo = document.getElementById('tarefa').value
+    if(adicionados.includes(conteudo)){
+        alert(`Você já adicionou ${conteudo} anteriormente, não é possível adicionar 2 vezes`)
+    } else {
+        alert(`Você adicionou ${conteudo} à lista de tarefas`)
 
-// FORMA CANSATIVA
-// let mensagem = 'Meu nome é ' + nome + ' ' + sobrenome  + ' e eu tenho ' + idade + ' anos de idade.'
+        let lista = document.getElementById('lista')
+        let novoItem = document.createElement('li')
+        let botaoExcluir = document.createElement('button')
 
+        botaoExcluir.textContent = "Excluir"
 
-let mensagem = `Meu nome é ${nome} ${sobrenome} e eu tenho ${idade} anos de idade`
+        adicionados.push(conteudo)
+        let identificador  = adicionados.length - 1
 
-console.log(mensagem)
+        novoItem.setAttribute('id', identificador)
+        novoItem.textContent = conteudo
+        botaoExcluir.setAttribute('onclick', 'excluir('+identificador+')')
+
+        lista.appendChild(novoItem)
+        novoItem.appendChild(botaoExcluir)
+    }
+}
+function excluir(identificador){
+    let lista = document.getElementById('lista')
+    let deletado = document.getElementById(identificador)
+    let texto = deletado.textContent
+    texto = texto.slice(0,-7)
+    alert(`Você removeu ${texto} da lista de tarefas`)
+    lista.removeChild(deletado)
+}
