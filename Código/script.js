@@ -1,19 +1,41 @@
-// includes, startsWith, endsWith
+// url - https://sujeitoprogramador.com/rn-api/?api=posts
 
-// let nomes = ["Fábio", "Felipe", "Rafael"]
+let listElement = document.querySelector("#app")
 
-// console.log(nomes.includes("Fábio"))
+let posts = []
 
-// if(nomes.includes("Felipe")){
-//     console.log("ESTÁ NA LISTA")
-// } else {
-//     console.log("NÃO ESTÁ NA LISTA")
-// }
+function nutriApp(){
 
-let nome = "Fábio"
+    fetch("https://sujeitoprogramador.com/rn-api/?api=posts") //.then(() =>{})
+    .then((r)=> r.json())
+    .then((json) => {
+        posts = json
+        console.log(posts)
 
-console.log(nome.startsWith("Fáb"))
-console.log(nome.startsWith("fáb")) // É case sensitive, por isso retorna falso
+        posts.map((item) =>{
+            let liElement = document.createElement('li')
+            let titleElement = document.createElement('strong')
+            let imgElement = document.createElement('img')
+            let descriptionElement = document.createElement('a')
+            
+            let titleText = document.createTextNode(item.titulo)
 
-console.log(nome.endsWith("o"))
-console.log(nome.endsWith("O")) // Novamente, case sensitive
+            titleElement.appendChild(titleText)
+            liElement.appendChild(titleElement)
+
+            imgElement.src = item.capa
+            liElement.appendChild(imgElement)
+
+            let descriptionText = document.createTextNode(item.subtitulo)
+            descriptionElement.appendChild(descriptionText)
+            liElement.appendChild(descriptionElement)
+
+            listElement.appendChild(liElement)
+        })
+    })
+    .catch(() => {
+        console.log("ERRO NA REQUISIÇÃO DO JSON")
+    })
+}
+
+nutriApp()
