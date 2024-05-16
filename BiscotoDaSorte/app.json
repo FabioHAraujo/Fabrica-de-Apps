@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AppAulas1",
-    "slug": "AppAulas1",
+    "name": "Biscoito da Sorte",
+    "slug": "BiscotoDaSorte",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,14 +19,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "br.com.bouken.biscoitodasorte"
+      "package": "com.akaiurami.BiscotoDaSorte"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "d53fc2ab-320a-4fb8-967f-67e02fd1d926"
+        "projectId": "e37bffd5-c2dc-4638-8d2b-14cc6265a8c8"
       }
     }
   }
