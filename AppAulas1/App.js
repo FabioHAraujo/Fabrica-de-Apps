@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { View, StatusBar, Text, TextInput, StyleSheet } from 'react-native';
+import { View, StatusBar, Text, TextInput, StyleSheet, Button } from 'react-native';
 
 function Index(){
   const [nome, setNome] = useState('')
-  
-  function pegaNome(texto){
-    if(texto.length > 0){
-      setNome('Bem-Vindo '+texto)
-    } else{
-      setNome('')
+  const [ input, setInput ] = useState('')
+
+  function entrar(){
+    if(input===''){
+      alert('Digite seu nome')
+      return;
     }
+    setNome(input)
   }
 
   return(
@@ -18,8 +19,10 @@ function Index(){
       <TextInput
         style = {styles.input}
         placeholder='Digite seu nome'
-        onChangeText={(texto)=> pegaNome(texto)}
+        onChangeText={(texto)=> setInput(texto)}
       />
+
+      <Button title='Entrar' onPress={ entrar } />
 
       <Text style={styles.texto}>{nome}</Text>
 
@@ -36,11 +39,13 @@ const styles = StyleSheet.create({
     height: 45,
     borderWidth: 1,
     padding: 10,
-    fontSize: 20
+    fontSize: 20,
+    marginBottom: 10
   },
   texto:{
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 15
   }
 
 })
