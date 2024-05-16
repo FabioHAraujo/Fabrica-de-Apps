@@ -1,19 +1,48 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StatusBar, Text, TextInput, StyleSheet } from 'react-native';
 
 function Index(){
+  const [nome, setNome] = useState('')
+  
+  function pegaNome(texto){
+    if(texto.length > 0){
+      setNome('Bem-Vindo '+texto)
+    } else{
+      setNome('')
+    }
+  }
+
   return(
-    <View style={{
-      flex: 1, 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      backgroundColor: 'lightblue'}}>
-      <View style={{height:50, width:50, backgroundColor: 'black' }}></View>
-      <View style={{height:50, width:50, backgroundColor: 'gray' }}></View>
-      <View style={{height:50, width:50, backgroundColor: 'white' }}></View>
+    <View style = {styles.container}>
+      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'}/>
+      <TextInput
+        style = {styles.input}
+        placeholder='Digite seu nome'
+        onChangeText={(texto)=> pegaNome(texto)}
+      />
+
+      <Text style={styles.texto}>{nome}</Text>
+
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    padding: 15
+  },
+  input:{
+    height: 45,
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 20
+  },
+  texto:{
+    fontSize: 25,
+    textAlign: 'center'
+  }
+
+})
 
 export default Index;
