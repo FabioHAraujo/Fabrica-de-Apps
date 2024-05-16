@@ -3,30 +3,12 @@ import { View, Text, StyleSheet } from 'react-native';
 
 function Index(){
   return(
-    <View style={styles.area}>
-      <Text style={[styles.titulo, styles.textoAlinhado]} >Matheus Pedroso</Text>
-      <Text style={styles.titulo} >Fábio Henrique</Text>
-      <Text style={styles.subTitulo}>Salve salve</Text>
+    <View style={{flex: 1, backgroundColor: '#a9a9a9'}}>
+      <View style={{height:65, backgroundColor: '#a9a9a9' }}></View>
+      <View style={{flex:1, backgroundColor: '#ddd' }}></View>
+      <View style={{height:65, backgroundColor: '#a9a9a9' }}></View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  area:{
-    marginTop:50
-  },
-  titulo:{
-    fontSize: 20,
-    color: 'red'
-  },
-  subTitulo:{
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'green'
-  },
-  textoAlinhado:{
-    textAlign: 'center'
-  }
-})
 
 export default Index;
