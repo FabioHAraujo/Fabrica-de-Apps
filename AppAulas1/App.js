@@ -1,58 +1,80 @@
 import React, { useState } from 'react';
 import { View, StatusBar, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
+let timer = null
+let ss = 0
+let mm = 0
+let hh = 0
+
 function Index(){
-  const [frase, setFrase] = useState('')
-  const [img, setImg] = useState(require('./images/biscoito.png'));
 
-  let frases = [
-    '"É hora de parar de pensar nos erros do passado e pensar nos erros do futuro."',
-    '"A vida é como mosquito da dengue... É preciso ter foco."',
-    '"Não deixe para amanhã o que você pode nem fazer."',
-    '"Em caminho de paca... Tatu caminha dentro."',
-    '"Em briga de saci, qualquer chute é voadora."',
-    '"Se ferradura desse sorte, burro não puxava carroça."',
-    '"Quem cedo madruga, passa o dia com sono."',
-    '"O sucesso é como um jogo de videogame: exige habilidade, paciência e, às vezes, até cheat codes."',
-    '"Assim como um controle remoto, o destino está sempre nas mãos, mas às vezes é preciso trocar as pilhas para mudar o canal da vida."',
-    '"Ser adulto é como jogar Mario Kart: você nunca está realmente preparado para as cascas de banana que a vida joga no seu caminho."',
-    '"A dieta é como um jogo de esconde-esconde: você tenta se esconder dos doces, mas eles sempre acabam te encontrando."',
-    '"Ser preguiçoso é como ter superpoderes: você pode mover montanhas, desde que elas não exijam muito esforço."',
-    '"Relacionamentos são como uma padaria, precisa da fórmula certa, paciência, e estar preparado para queimar a rosca."',
-    '"O verdadeiro caminho do sábio, é o mais curto."',
-    '"Muito custa aquilo que é muito caro."',
-    '"Lembre-se, mesmo no seu pior dia, tudo ainda pode piorar."',
-    '"Rico é aquele que tem dinheiro."',
-    '"Toda criança deseja ser adulto para poder comprar o jogo que quiser, e todo adulto quer ser criança para poder jogá-los."',
-    '"Toda pessoa de bem, deve odiar vídeos com parte dois, pois são esses que"',
-    '"Gente teimosa é como biscoito da sorte, não tem sabor, não tem cheiro, é difícil, mas se você tiver um martelo..."'
-  ]
-  
-  function quebrarBiscoito(){
-    let aleatorio = Math.floor(Math.random() * frases.length)
-  
-    setFrase(frases[aleatorio])
-    setImg(require('./images/biscoitoAberto.png'))
+  const [tempo, setTempo] = useState('00:00:00')
+  const [botao, setBotao] = useState('INICIAR')
+  const [ultimo, setUltimo] = useState(null)
+
+  function iniciar(){
+    if(timer !== null){
+      clearInterval(timer)
+      timer = null
+      setBotao('RETOMAR')
+    } else {
+      timer= setInterval(()=>{
+        ss++
+        if(ss==60) {
+          ss = 0;
+          mm ++;
+        }
+        if(mm==60){
+          mm = 0
+          hh++
+        } 
+
+        let format =
+        (hh < 10 ? '0' + hh : hh) + ':'
+        + (mm < 10 ? '0' + mm : mm) + ':'
+        + (ss < 10 ? '0' + ss : ss)
+
+        setTempo(format)
+      }, 1000)
+      setBotao('PARAR')
+    }
   }
 
-  function resetBiscoito(){
-    setFrase('')
-    setImg(require('./images/biscoito.png'))
+  function limpar(){
+    if(timer!==null){
+      clearInterval(timer)
+      timer = null
+    }
+    setBotao('INICIAR')
+    setUltimo(tempo)
+    ss = 0
+    mm = 0
+    hh = 0
+    setTempo('00:00:00')
   }
+
   return(
     <View style = {styles.container}>
-      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'}/>
-      <View style={styles.biscoitoContainer}><Image style={styles.biscoito} source={img}/></View>
-      <View style={styles.textoContainer}>
-        <Text style={styles.textoFrase}>{frase}</Text>
+      <StatusBar backgroundColor={'#00aeef'} barStyle={'dark-content'}/>
+      <View style={styles.timerArea}>
+        <Image 
+          source ={require('./images/crono.png')}
+          style={styles.img}
+        />
+        <Text style={styles.timer}> {tempo} </Text>
       </View>
-      <View style={styles.botoesContainer}>
-        <TouchableOpacity style={styles.botaoAbre} onPress={()=>quebrarBiscoito()}>
-          <Text style={styles.textoBotaoAbre}>Quebrar Biscoito</Text>
+      <View style={styles.btnArea}>
+        <TouchableOpacity style={styles.btn} onPress={iniciar}>
+          <Text style={styles.btnTexto}>{botao}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoReset} onPress={()=>resetBiscoito()}>
-          <Text style={styles.textoBotaoReset}>Reset Biscoito</Text>
+        <TouchableOpacity style={styles.btn} onPress={limpar}>
+          <Text style={styles.btnTexto}>LIMPAR</Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.areaUltimo}>
+        <Text style={styles.ultimoTexto}>
+          {ultimo ? 'Ultimo Tempo: ' + ultimo : ''}
+        </Text>
       </View>
     </View>
   );
@@ -63,62 +85,54 @@ function Index(){
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    alignItems:'center',
+    backgroundColor: '#00aeef',
+    flexDirection: 'column',
     justifyContent: 'center',
-    padding: 15,
-    flexDirection: 'column'
-  },
-  biscoitoContainer:{
-    flex: 4,
-    justifyContent: 'flex-end'
-  },
-  textoContainer:{
-    flex: 2,
-    justifyContent: 'center'
-  },
-  botoesContainer:{
-    flex: 2
-  },
-  botaoAbre:{
-    borderColor: '#dd7b22',
-    width: 230,
-    height: 50,
-    borderRadius: 30,
-    borderWidth: 2,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin:5
   },
-  botaoReset:{
-    borderColor: '#000',
-    width: 230,
-    height: 50,
-    borderRadius: 30,
-    borderWidth: 2,
-    backgroundColor: '#fff',
+  img:{
+    position: 'absolute',
+  },
+  timerArea:{
+    justifyContent:'center',
     alignItems: 'center',
+    margin:100
+  },
+  btnArea:{
+    flexDirection: 'row',
+    padding: 30,
+  },
+  timer:{
+    marginTop: 50,
+    textAlign: 'center',
+    fontSize: 45,
+    fontWeight: 'bold',
+    color: '#FFF'
+  },
+  btn:{
+    flex: 1,
     justifyContent: 'center',
-    margin:5
+    alignItems: 'center',
+    backgroundColor: 'white',
+    height: 40,
+    margin: 17,
+    borderRadius: 9
   },
-  textoBotaoAbre:{
+  btnTexto:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#00aeef'
+  }, 
+  areaUltimo:{
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  ultimoTexto:{
+    fontWeight: 'bold',
     fontSize: 22,
-    color: '#dd7b22'
-  },
-  textoBotaoReset:{
-    fontSize: 22,
-    color: '#000'
-  },
-  biscoito:{
-    width:300,
-    height:300
-  },
-  textoFrase:{
-    fontSize: 22,
-    color: '#dd7b22',
-    margin: 3
+    color: 'white',
+    fontStyle: 'italic'
   }
-  
 })
 
 export default Index;
