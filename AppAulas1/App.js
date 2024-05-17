@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StatusBar, StyleSheet, FlatList, Text } from 'react-native';
+import Pessoa from './src/Pessoa'
 
 
 function Index(){
@@ -31,26 +32,7 @@ function Index(){
 const styles = StyleSheet.create({
   container:{
     flex:1
-  },
-  areaPessoa:{
-    backgroundColor: '#ddd',
-    height: 200,
-    marginBottom: 15,
-    padding: 15
-  },
-  textoPessoa:{
-    color:'#000'
   }
 })
 
 export default Index;
-
-function Pessoa(props){
-  return(
-    <View style={styles.areaPessoa}>
-      <Text style={styles.textoPessoa}>{props.data.nome}</Text>
-      <Text style={styles.textoPessoa}>{props.data.idade}</Text>
-      <Text style={styles.textoPessoa}>{props.data.email}</Text>
-    </View>
-  )
-}
