@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import { View, StatusBar, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StatusBar, StyleSheet, FlatList, Text } from 'react-native';
 
-let timer = null
-let ss = 0
-let mm = 0
-let hh = 0
 
 function Index(){
+
+  const [feed, setFeed] = useState([
+    {_id: '1', nome: 'Fábio', idade: 23, email: 'fabio@example.com'},
+    {_id: '2', nome: 'Henrique', idade: 84, email: 'henrique@example.com'},
+    {_id: '3', nome: 'Maria', idade: 45, email: 'maria.silva@example.com'},
+    {_id: '4', nome: 'João', idade: 30, email: 'joao.oliveira@example.com'},
+    {_id: '5', nome: 'Ana', idade: 28, email: 'ana.souza@example.com'},
+    {_id: '6', nome: 'Carlos', idade: 50, email: 'carlos.santos@example.com'}
+  ])
+
   return(
     <View style = {styles.container}>
       <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'}/>
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-        <View style={styles.box1}></View>
-        <View style={styles.box2}></View>
-        <View style={styles.box3}></View>
-        <View style={styles.box4}></View>
-        <View style={styles.box2}></View>
-      </ScrollView>
+      <FlatList 
+        data={feed}
+        keyExtractor={(item) => item._id} //Necessário somente caso o id não venha como "id"
+        renderItem={({item})=><Pessoa data={item}/>}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 }
@@ -27,26 +32,25 @@ const styles = StyleSheet.create({
   container:{
     flex:1
   },
-  box1:{
-    height: 250,
-    width: 150,
-    backgroundColor: 'red'
+  areaPessoa:{
+    backgroundColor: '#ddd',
+    height: 200,
+    marginBottom: 15,
+    padding: 15
   },
-  box2:{
-    height: 250,
-    width: 150,
-    backgroundColor: 'green'
-  },
-  box3:{
-    height: 250,
-    width: 150,
-    backgroundColor: 'yellow'
-  },
-  box4:{
-    height: 250,
-    width: 150,
-    backgroundColor: 'blue'
+  textoPessoa:{
+    color:'#000'
   }
 })
 
 export default Index;
+
+function Pessoa(props){
+  return(
+    <View style={styles.areaPessoa}>
+      <Text style={styles.textoPessoa}>{props.data.nome}</Text>
+      <Text style={styles.textoPessoa}>{props.data.idade}</Text>
+      <Text style={styles.textoPessoa}>{props.data.email}</Text>
+    </View>
+  )
+}
