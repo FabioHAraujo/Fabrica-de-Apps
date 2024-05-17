@@ -4,6 +4,7 @@ import { View, StatusBar, Text, StyleSheet, TouchableOpacity, Image } from 'reac
 function Index(){
   const [frase, setFrase] = useState('')
   const [img, setImg] = useState(require('./images/biscoito.png'));
+  const [estado, setEstado] = useState(false)
 
   let frases = [
     '"É hora de parar de pensar nos erros do passado e pensar nos erros do futuro."',
@@ -33,6 +34,7 @@ function Index(){
   
     setFrase(frases[aleatorio])
     setImg(require('./images/biscoitoAberto.png'))
+    setEstado(true)
   }
 
   function resetBiscoito(){
