@@ -1,28 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StatusBar, StyleSheet, Text } from "react-native";
-import Usuario from "./src/Usuario/usuario";
-
-const usuarios = [
-  { id: "1", nome: "Fábio Araújo", cargo: "Desenvolvedor" },
-  { id: "2", nome: "Henrique Silva", cargo: "Gerente de Projetos" },
-  { id: "3", nome: "Maria Santos", cargo: "Analista de Sistemas" },
-  { id: "4", nome: "João Oliveira", cargo: "Designer" },
-  { id: "5", nome: "Ana Souza", cargo: "Engenheira de Software" },
-  { id: "6", nome: "Carlos Santos", cargo: "Administrador de Redes" },
-  { id: "7", nome: "Luciana Pereira", cargo: "Suporte Técnico" },
-  { id: "8", nome: "Roberto Lima", cargo: "Gerente de TI" },
-];
+import { Picker } from "@react-native-picker/picker";
 
 function Index() {
-  const usuario = usuarios.find((user) => user.id === "5");
+  const [carro, setCarro] = useState(0)
+  const [listaCarros, setlistaCarros] = useState([
+    {key: 1, nome: 'Golf 1.6', valor: 62000},
+    {key: 2, nome: 'Jetta 2.0', valor: 75000},
+    {key: 3, nome: 'Passat 2.0', valor: 90000},
+    {key: 4, nome: 'Tiguan 2.0', valor: 100000},
+    {key: 5, nome: 'T-Cross 1.4', valor: 80000},
+    {key: 6, nome: 'Amarok 3.0', valor: 120000},
+    {key: 7, nome: 'Maverick V8', valor: 400000}
+  ])
+
+  let listaCarrosItem = listaCarros.map((v, k) => {
+    return <Picker.Item key={k} value={k} label={v.nome}/>
+  })
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Seja Bem-Vindo</Text>
-      </View>
-      <Usuario data={usuario}/>
+      <Picker
+        selectedValue={carro}
+        onValueChange={(itemValue, itemIndex) => setCarro(itemValue)}
+      >
+        {listaCarrosItem}
+      </Picker>
+
+      <Text style={styles.listaCarros}>Carro: {listaCarros[carro].nome}</Text>
+      <Text style={styles.listaCarros}>Valor: {listaCarros[carro].valor}</Text>
+
     </View>
   );
 }
@@ -31,17 +39,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ddd",
-    height: 60,
-  },
-  headerText: {
-    color: "#000",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
+  carro:{
+    marginTop: 15,
+    fontSize: 25
+  }
 });
 
 export default Index;
