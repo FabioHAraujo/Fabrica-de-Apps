@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { View, StatusBar, StyleSheet, Text } from "react-native";
-import Slider from '@react-native-community/slider';
+import { View, StatusBar, StyleSheet, Text, Switch } from "react-native";
 
 function Index() {
-  const [valor, setValor] = useState(50)
+  const [status, setStatus] = useState(50)
 
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
-      <Text style={styles.texto}>Selecione seu peso:</Text>
-      <Slider 
-        maximumValue={0}
-        maximumValue={100}
-        value={valor}
-        onValueChange={(valorSelecionado)=>setValor(valorSelecionado)}
-        minimumTrackTintColor="blue"
-        maximumTrackTintColor="red"
-        thumbTintColor="purple"
+
+      <Switch 
+        value={status}
+        onValueChange={(statusSwitch) => setStatus(statusSwitch)}
+        trackColor={{ false: '#ddd', true: '#9FE2BF'}}
+        thumbColor={status ? '#008080' : '#454545'}
       />
 
-      <Text style={styles.valor}>Você tem: {valor.toFixed(0)}kg</Text>
+      <Text style={styles.valor}>
+        A tomada está: { status ? "Ligada" : "Desligada" }
+      </Text>
       
     </View>
   );
@@ -29,7 +27,8 @@ function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 35
+    marginTop: 35,
+    alignItems: 'center'
   },
   valor:{
     textAlign: 'center'
