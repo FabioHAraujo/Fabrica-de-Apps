@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StatusBar, StyleSheet, Text, Switch } from "react-native";
 
 function Index() {
-  const [status, setStatus] = useState(50)
+  const [status, setStatus] = useState(false)
 
 
   return (
