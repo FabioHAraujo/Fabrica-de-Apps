@@ -1,26 +1,48 @@
 import React, { useState, useEffect } from 'react'
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StatusBar ,StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
-  const [contador, setContador] = useState(0);
-  const [renderizado, setRendeizado] = useState(true)
-  
+  const [input, setInput] = useState('');
+  const [nome, setNome] = useState('');
+
   useEffect(()=>{
-    console.log('Montou')
-  },[contador])
+    async function loadNome(){
+      await AsyncStorage.getItem('@nome').then((valor)=>{
+        setNome(valor)
+      })
+    }
+
+    loadNome()
+  }, [])
+
+  async function gravaNome(){
+    await AsyncStorage.setItem('@nome', input)
+
+    setNome(input)
+
+    setInput('')
+  }
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Button title="Aumentar" onPress={() =>setContador(contador+1)} />
-      <Text style={{fontSize: 30}}>{contador}</Text>
-      <Button title="Diminuir" onPress={() =>setContador(contador-1)} />
-    
-      <Button title="MOSTRAR NOME" onPress={() => setRendeizado(false)} />
+      <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
+      <View style={styles.viewInput}>
+        <TextInput 
+          style={styles.input}
+          value={input}
+          onChangeText={(texto) => setInput(texto)}
+        />
 
-      {renderizado && <Nome/>}
-    
+        <TouchableOpacity onPress={gravaNome}>
+          <Text style={styles.botao}>+</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <Text style={styles.nome}>{nome}</Text>
+      
     </View>
   );
 }
@@ -30,17 +52,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 35
   },
+  viewInput:{
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  input:{
+    width: 350,
+    height: 40,
+    borderColor: '#000',
+    borderWidth: 1,
+    padding: 10
+  },
+  botao:{
+    backgroundColor: '#222',
+    color: '#fff',
+    height: 40,
+    padding: 12,
+    marginLeft: 4
+  },
+  nome:{
+    marginTop: 15,
+    fontSize: 30
+  }
+  
 });
-
-function Nome(){
-
-  useEffect(()=>{
-    console.log('Componente nome foi montado')
-
-    return () => console.log('Componente nome desmontado')
-  }, [] )  
-
-  return<Text>Matheus</Text>
-}
