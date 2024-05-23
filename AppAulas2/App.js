@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { StatusBar ,StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,6 +25,12 @@ export default function App() {
     setInput('')
   }
 
+  // const letrasNome = nome.length
+  const letrasNome = useMemo(()=>{
+    console.log('Pegando quantidade de letras')
+    return nome.length
+  }, [nome])
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
@@ -43,6 +49,7 @@ export default function App() {
 
       <Text style={styles.nome}>{nome}</Text>
       
+      <Text style={styles.nome}>Possui {letrasNome} Letras</Text>
     </View>
   );
 }
