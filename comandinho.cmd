@@ -1,1 +1,1 @@
-npx create-expo-app Cronometro --template blank
+npx create-expo-app AppAulas1 --template blank
