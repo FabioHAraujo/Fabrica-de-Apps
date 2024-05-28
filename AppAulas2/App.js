@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, Text, View, Modal, Button } from "react-native";
+import { StatusBar, StyleSheet, Text, View, Modal, Button, TouchableOpacity } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import FontAwesome from '@expo/vector-icons/FontAwesome6';
 
 import Detalhes from "./src/Detalhes";
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false);
-  function abreModal() {
-    setModalVisible(true);
-  }
-  function fechaModal() {
-    setModalVisible(false);
-  }
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
-      <Button title="Acessar" onPress={abreModal} />
-      <Modal visible={modalVisible} animationType="slide" transparent={true}>
-        <Detalhes fechar={fechaModal} />
-      </Modal>
+      <FontAwesome name='user' size={80} color='red'/>
+      <Ionicons name='gift' size={80} color='red'/>
+      <TouchableOpacity style={styles.btnYoutube}>
+        <FontAwesome name='youtube' size={32} color='red'/>
+        <Text style={styles.btnText}>Acessar Canal</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -30,10 +26,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  modal: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#121212",
+  btnYoutube:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: '#4848',
+    borderRadius: 8
   },
+  btnText:{
+    color: '#fff',
+    fontSize: 22,
+    fontWeight: 'bold',
+    margin: 3
+  }
 });
