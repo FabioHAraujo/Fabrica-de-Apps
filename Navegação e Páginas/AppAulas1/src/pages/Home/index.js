@@ -1,25 +1,13 @@
-import React,{ useEffect } from "react";
+import React from "react";
 import { View, StyleSheet, Text, StatusBar, Button } from "react-native";
-import * as NavigationBar from 'expo-navigation-bar';
 
 import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
-  // APENAS UMA DEPENDENCIA PRA ALTERAR A COR DA BARRA DE NAVEGAÇÃO
-  useEffect(() => {
-    async function setNavigationBarColor() {
-      await NavigationBar.setBackgroundColorAsync('#fff');
-      await NavigationBar.setButtonStyleAsync('dark');
-    }
-
-    setNavigationBarColor();
-  }, []);
-  // -------------------------------------
-
   const navigation = useNavigation();
 
   function navegaSobre(){
-    navigation.navigate('Sobre', {nome: 'Fábio Henrique', email: 'fabio@teste.com'})
+    navigation.navigate('Sobre')
   }
 
   return (
@@ -36,6 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: '#fff',
+    backgroundColor: '#6C3483',
   },
 });
