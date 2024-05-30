@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, StatusBar, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   function navegaDetalhes(){
     navigation.navigate('Detalhes')

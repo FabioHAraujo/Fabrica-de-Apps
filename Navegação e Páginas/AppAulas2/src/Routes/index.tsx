@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import StackRoutes from "./stackRoutes";
 import Sobre from "../pages/Sobre";
 import Contato from "../pages/Contato";
+import { DrawerLayoutAndroidBase } from "react-native";
 
-const Tab = createBottomTabNavigator();
 
 export default function Routes() {
   // APENAS UMA DEPENDENCIA PRA ALTERAR A COR DA BARRA DE NAVEGAÇÃO
@@ -22,47 +21,26 @@ export default function Routes() {
   }, []);
   // -------------------------------------
 
+  const Drawer = createDrawerNavigator();
+
   return (
-    <Tab.Navigator
+    <Drawer.Navigator
       screenOptions={{
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: "#e6e6e6",
-        tabBarStyle: {
-          backgroundColor: "#202222",
-          borderTopWidth: 0,
-        },
+        headerTitle: ''
       }}
     >
-      <Tab.Screen
+      <Drawer.Screen 
         name="HomeStack"
         component={StackRoutes}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="home" color={color} size={size} />;
-          },
-        }}
       />
-      <Tab.Screen
+      <Drawer.Screen 
         name="Sobre"
         component={Sobre}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="document-text" color={color} size={size} />;
-          },
-          //headerShown: false,
-        }}
       />
-      <Tab.Screen
+      <Drawer.Screen 
         name="Contato"
         component={Contato}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="call" color={color} size={size} />;
-          },
-        }}
       />
-    </Tab.Navigator>
+    </Drawer.Navigator>
   );
 }
