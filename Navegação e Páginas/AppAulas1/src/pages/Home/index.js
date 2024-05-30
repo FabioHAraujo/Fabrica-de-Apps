@@ -6,15 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 export default function Home() {
   const navigation = useNavigation();
 
-  function navegaSobre(){
-    navigation.navigate('Sobre')
+  function navegaDetalhes(){
+    navigation.navigate('Detalhes')
   }
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
       <Text>Tela Home</Text>
-      <Button title="Ir para Sobre" onPress={ navegaSobre } />
+      <Button title="Ir para Sobre" onPress={ navegaDetalhes } />
     </View>
   );
 }
@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: '#6C3483',
+    backgroundColor: '#fff',
   },
 });
