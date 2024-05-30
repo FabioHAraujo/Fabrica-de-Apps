@@ -15,6 +15,8 @@ export default function Home() {
       <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
       <Text>Tela Home</Text>
       <Button title="Ir para Sobre" onPress={ navegaDetalhes } />
+      <Button title="Abrir Drawer" onPress={ () => navigation.openDrawer() } />
+      
     </View>
   );
 }

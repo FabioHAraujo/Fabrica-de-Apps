@@ -26,7 +26,7 @@ export default function Routes() {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerTitle: ''
+        headerShown: false
       }}
     >
       <Drawer.Screen 
