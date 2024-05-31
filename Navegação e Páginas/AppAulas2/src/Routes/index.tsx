@@ -6,8 +6,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import StackRoutes from "./stackRoutes";
 import Sobre from "../pages/Sobre";
 import Contato from "../pages/Contato";
-import { DrawerLayoutAndroidBase } from "react-native";
 
+import CustomDrawer from "../Components/CustomDrawer";
 
 export default function Routes() {
   // APENAS UMA DEPENDENCIA PRA ALTERAR A COR DA BARRA DE NAVEGAÇÃO
@@ -25,32 +25,24 @@ export default function Routes() {
 
   return (
     <Drawer.Navigator
+      drawerContent={CustomDrawer}
       screenOptions={{
         headerShown: false,
-        drawerStyle:{
-          backgroundColor: '#c0c0c0',
-        },
-        drawerActiveBackgroundColor:'#34495E',
-        drawerActiveTintColor: '#fff',
-        drawerInactiveBackgroundColor: '#fff',
-        drawerInactiveTintColor: '#000'
+        drawerActiveBackgroundColor: "#5D6D7E",
+        drawerActiveTintColor: "#fff",
+        drawerInactiveBackgroundColor: "#f0f0f0",
+        drawerInactiveTintColor: "#000",
       }}
     >
-      <Drawer.Screen 
+      <Drawer.Screen
         name="HomeStack"
         component={StackRoutes}
         options={{
-          title: 'Início'
+          title: "Início",
         }}
       />
-      <Drawer.Screen 
-        name="Sobre"
-        component={Sobre}
-      />
-      <Drawer.Screen 
-        name="Contato"
-        component={Contato}
-      />
+      <Drawer.Screen name="Sobre" component={Sobre} />
+      <Drawer.Screen name="Contato" component={Contato} />
     </Drawer.Navigator>
   );
 }
