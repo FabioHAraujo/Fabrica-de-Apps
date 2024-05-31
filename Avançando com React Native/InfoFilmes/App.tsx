@@ -19,10 +19,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-    <FlatList 
-      data={filmes}
-      renderItem={({item}) => Filmes(item)}
-    />
+      <StatusBar backgroundColor={'#D5DBDB'} barStyle={'dark-content'}/>
+      <FlatList 
+        showsVerticalScrollIndicator={false}
+        data={filmes}
+        renderItem={({item}) => <Filmes data={item} />}
+      />
     </View>
   )
 }
@@ -30,8 +32,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#D5DBDB",
   },
 });
