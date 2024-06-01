@@ -7,22 +7,32 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import Picker from "./src/components/Picker";
 
 import api from "./src/services/api";
 
-export default function App() {
-  const [moedas, setMoedas] = useState([]);
-  const [loading, setLoading] = useState(true);
+interface Moeda {
+  key: string;
+  label: string;
+  value: string;
+}
 
-  const [moedaSelecionada, setMoedaSelecionada] = useState(null);
-  const [moedaInputValor, setMoedaInputValor] = useState(0);
+export default function App() {
+  const [moedas, setMoedas] = useState<Moeda[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const [moedaSelecionada, setMoedaSelecionada] = useState<string | null>(null);
+  const [moedaInputValor, setMoedaInputValor] = useState<string>("");
+
+  const [valorMoeda, setValorMoeda] = useState<string | null>(null);
+  const [valorConvertido, setValorConvertido] = useState<string>("");
 
   useEffect(() => {
     async function loadMoedas() {
       const response = await api.get("all");
-      let arrayMoedas = [];
+      let arrayMoedas: Moeda[] = [];
       Object.keys(response.data).map((key) => {
         arrayMoedas.push({
           key: key,
@@ -36,6 +46,25 @@ export default function App() {
     loadMoedas();
   }, []);
 
+  async function converter() {
+    if (!moedaSelecionada || !moedaInputValor) {
+      alert("Por favor, selecione uma moeda e digite um valor para conversão");
+      return;
+    }
+
+    try {
+      const response = await api.get(`all/${moedaSelecionada}-BRL`);
+      const resultado = response.data[moedaSelecionada].ask * parseFloat(moedaInputValor);
+      setValorConvertido(`R$ ${resultado.toFixed(2)}`);
+      setValorMoeda(moedaInputValor);
+
+      // Garante que o teclado fecha
+      Keyboard.dismiss();
+    } catch (error) {
+      console.error("Erro ao converter a moeda:", error);
+    }
+  }
+
   if (loading) {
     return (
       <View style={styles.loading}>
@@ -48,31 +77,37 @@ export default function App() {
         <StatusBar backgroundColor={"#101215"} barStyle={"light-content"} />
         <View style={styles.areaMoeda}>
           <Text style={styles.titulo}>Moeda para converter:</Text>
-          <Picker moedas={moedas} onChange={(moeda) => setMoedaSelecionada(moeda)}/>
+          <Picker
+            moedas={moedas}
+            onChange={(moeda: string) => setMoedaSelecionada(moeda)}
+          />
         </View>
 
         <View style={styles.areaValor}>
-          <Text style={styles.titulo}>
-            Digite um valor para converter em R$
-          </Text>
+          <Text style={styles.titulo}>Digite um valor para converter em R$</Text>
           <TextInput
             placeholder="EX: 150"
             style={styles.input}
             keyboardType="numeric"
+            onChangeText={(valor) => setMoedaInputValor(valor)}
           />
         </View>
 
-        <TouchableOpacity style={styles.botaoArea}>
+        <TouchableOpacity style={styles.botaoArea} onPress={converter}>
           <Text style={styles.botaoTexto}>Converter</Text>
         </TouchableOpacity>
 
-        <View style={styles.areaResultado}>
-          <Text style={styles.valorConvertido}>3 USD</Text>
-          <Text style={[styles.valorConvertido, { fontSize: 18, margin: 10 }]}>
-            Corresponde à:
-          </Text>
-          <Text style={styles.valorConvertido}>15R$</Text>
-        </View>
+        {valorConvertido !== "" && (
+          <View style={styles.areaResultado}>
+            <Text style={styles.valorConvertido}>{valorMoeda} {moedaSelecionada}</Text>
+            <Text
+              style={[styles.valorConvertido, { fontSize: 18, margin: 10 }]}
+            >
+              Corresponde à:
+            </Text>
+            <Text style={styles.valorConvertido}>{valorConvertido}</Text>
+          </View>
+        )}
       </View>
     );
   }
