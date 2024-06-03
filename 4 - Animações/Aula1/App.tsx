@@ -2,39 +2,48 @@ import React, { useRef, useEffect } from "react";
 import { StyleSheet, Text, View, StatusBar, Animated } from "react-native";
 
 export default function App() {
-  const larguraAnimada = useRef(new Animated.Value(150)).current;
-  const alturaAnimada = useRef(new Animated.Value(100)).current;
+  const larguraAnimada = useRef(new Animated.Value(0)).current;
+  const alturaAnimada = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(larguraAnimada, {
-          toValue: 300,
-          duration: 2000,
-          useNativeDriver: false
-        }),
-        Animated.timing(larguraAnimada, {
-          toValue: 150,
-          duration: 2000,
-          useNativeDriver: false
-        }),
-      ])
-    ).start();
+    Animated.sequence([
+      Animated.timing(larguraAnimada, {
+        toValue: 100,
+        duration: 4000,
+        useNativeDriver: false
+      }),
+      Animated.timing(alturaAnimada, {
+        toValue: 100,
+        duration: 4000,
+        useNativeDriver: false
+      })
+    ]).start( () => {
+      // CHAMA QUANDO FINALIZAR A ANIMAÇÃO
+    })
   }, []);
+
+  let porcentagemLargura = larguraAnimada.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%']
+  })
+
+  let porcentagemAltura = alturaAnimada.interpolate({
+    inputRange: [50, 100],
+    outputRange: ['5%', '100%']
+  })
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
       <Animated.View
         style={[
           styles.animacao,
           {
-            width: larguraAnimada,
-            height: alturaAnimada,
+            width: porcentagemLargura,
+            height: porcentagemAltura,
           },
         ]}
       >
-        <Text style={styles.textoCarregando}>Carregando...</Text>
+        <Text style={styles.textoCarregando}></Text>
       </Animated.View>
     </View>
   );
@@ -50,7 +59,6 @@ const styles = StyleSheet.create({
   animacao: {
     backgroundColor: "#4169e1",
     justifyContent: "center",
-    borderRadius: 50
   },
   textoCarregando: {
     textAlign: "center",
