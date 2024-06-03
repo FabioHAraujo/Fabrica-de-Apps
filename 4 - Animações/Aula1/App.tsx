@@ -4,33 +4,22 @@ import { StyleSheet, Text, View, StatusBar, Animated } from "react-native";
 export default function App() {
   const larguraAnimada = useRef(new Animated.Value(150)).current;
   const alturaAnimada = useRef(new Animated.Value(100)).current;
-  const opacidadeAnimada = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.sequence([
-      Animated.timing(opacidadeAnimada, {
-        toValue: 1,
-        duration: 2000,
-        useNativeDriver: false,
-      }),
-      Animated.parallel([
+    Animated.loop(
+      Animated.sequence([
         Animated.timing(larguraAnimada, {
           toValue: 300,
           duration: 2000,
-          useNativeDriver: false,
+          useNativeDriver: false
         }),
-        Animated.timing(alturaAnimada, {
-          toValue: 200,
+        Animated.timing(larguraAnimada, {
+          toValue: 150,
           duration: 2000,
-          useNativeDriver: false,
+          useNativeDriver: false
         }),
-      ]),
-      Animated.timing(opacidadeAnimada, {
-        toValue: 0,
-        duration: 2000,
-        useNativeDriver: false,
-      }),
-    ]).start();
+      ])
+    ).start();
   }, []);
 
   return (
@@ -42,7 +31,6 @@ export default function App() {
           {
             width: larguraAnimada,
             height: alturaAnimada,
-            opacity: opacidadeAnimada,
           },
         ]}
       >
@@ -62,6 +50,7 @@ const styles = StyleSheet.create({
   animacao: {
     backgroundColor: "#4169e1",
     justifyContent: "center",
+    borderRadius: 50
   },
   textoCarregando: {
     textAlign: "center",
