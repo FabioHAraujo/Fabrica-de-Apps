@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as NavigationBar from "expo-navigation-bar";
 
 import HomeScreen from "../HomeScreen";
-import ProfileScreen from "../ProfileScreen";
+import Mapa from "../Mapa";
 import Cadastro from "../Cadastro";
 import ExibirItems from "../ExibirItens";
 
@@ -38,8 +38,8 @@ const MainTab = () => {
 
           if (route.name === 'Home') {
             iconName = 'home';
-          } else if (route.name === 'Profile') {
-            iconName = 'user';
+          } else if (route.name === 'Mapa') {
+            iconName = 'map';
           } else if (route.name === 'Cadastro') {
             iconName = 'wpforms';
           }
@@ -49,7 +49,7 @@ const MainTab = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Mapa" component={Mapa} />
       <Tab.Screen name="Cadastro" component={Cadastro} />
       <Tab.Screen name="ExibirItems" component={ExibirItems} options={{
         tabBarIcon: ({ color, size }) => {

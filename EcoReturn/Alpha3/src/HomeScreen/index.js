@@ -9,6 +9,7 @@ import {
   StatusBar,
   ImageBackground,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { collection, query, where, getDocs } from 'firebase/firestore';
@@ -44,7 +45,7 @@ const HomeScreen = () => {
         items.push(doc.data());
       });
 
-      setResults(items.slice(0, 3)); // Limita a 3 resultados
+      setResults(items.slice(0, 4)); // Limita a 4 resultados
       setDropdownVisible(true);
     } catch (error) {
       console.error('Erro na busca:', error);
@@ -86,7 +87,11 @@ const HomeScreen = () => {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity style={styles.item} onPress={() => console.log(item)}>
-                  <Text style={styles.itemText}>{item.nome}</Text>
+                  <Image source={{ uri: item.imagem }} style={styles.itemImage} />
+                  <View style={styles.itemTextContainer}>
+                    <Text style={styles.itemName}>{item.nome}</Text>
+                    <Text style={styles.itemDescription}>{item.descricao}</Text>
+                  </View>
                 </TouchableOpacity>
               )}
               style={styles.dropdown}
@@ -145,12 +150,29 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   item: {
+    flexDirection: 'row',
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
+    alignItems: 'center',
   },
-  itemText: {
+  itemImage: {
+    width: 64,
+    height: 64,
+    borderRadius: 8,
+    marginRight: 16,
+  },
+  itemTextContainer: {
+    flex: 1,
+  },
+  itemName: {
     color: '#000',
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  itemDescription: {
+    color: '#000',
+    fontSize: 12,
   },
   homeText: {
     color: '#fff',
