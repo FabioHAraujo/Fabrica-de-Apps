@@ -3,8 +3,11 @@
 import React, {useEffect} from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as NavigationBar from "expo-navigation-bar";
+
 import HomeScreen from "../HomeScreen";
 import ProfileScreen from "../ProfileScreen";
+import Cadastro from "../Cadastro";
+import ExibirItems from "../ExibirItens";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
@@ -37,6 +40,8 @@ const MainTab = () => {
             iconName = 'home';
           } else if (route.name === 'Profile') {
             iconName = 'user';
+          } else if (route.name === 'Cadastro') {
+            iconName = 'wpforms';
           }
 
           return <FontAwesome name={iconName} size={size} color={color} />;
@@ -45,6 +50,12 @@ const MainTab = () => {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Cadastro" component={Cadastro} />
+      <Tab.Screen name="ExibirItems" component={ExibirItems} options={{
+        tabBarIcon: ({ color, size }) => {
+          return <FontAwesome name="list" color={color} size={size} />;
+        }
+      }} />
     </Tab.Navigator>
   );
 };
