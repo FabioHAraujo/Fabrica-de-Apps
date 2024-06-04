@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "426927916206",
+    "firebase_url": "https://fabricadeapps-d7f54-default-rtdb.firebaseio.com",
+    "project_id": "fabricadeapps-d7f54",
+    "storage_bucket": "fabricadeapps-d7f54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426927916206:android:4bdca038f78e09d3aa593f",
+        "android_client_info": {
+          "package_name": "com.fabioharaujo.firebasefda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYUbModd9Pff6nodiESP9KGkLupNXXLG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

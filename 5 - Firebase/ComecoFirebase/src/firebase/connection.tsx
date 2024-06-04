@@ -3,13 +3,14 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCBTTabpIcMhxFkZ_3cK1rY7mLoult4K2U",
-  authDomain: "meuapp-82c32.firebaseapp.com",
-  projectId: "meuapp-82c32",
-  storageBucket: "meuapp-82c32.appspot.com",
-  messagingSenderId: "493850922100",
-  appId: "1:493850922100:web:a9609ad023b719c2c95521",
-  measurementId: "G-3TK47LWY2W"
+  apiKey: "AIzaSyDiRu8k1SCJfSc2mYo-kzo1A4F93SzFcZg",
+  authDomain: "fabricadeapps-d7f54.firebaseapp.com",
+  databaseURL: "https://fabricadeapps-d7f54-default-rtdb.firebaseio.com",
+  projectId: "fabricadeapps-d7f54",
+  storageBucket: "fabricadeapps-d7f54.appspot.com",
+  messagingSenderId: "426927916206",
+  appId: "1:426927916206:web:2ced0570d9d4f3e7aa593f",
+  measurementId: "G-WJW6RLC40L"
 };
 
 const app = initializeApp(firebaseConfig);
