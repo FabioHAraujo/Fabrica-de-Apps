@@ -12,32 +12,29 @@ import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useNavigation } from '@react-navigation/native';
-import estilosLogin from './LoginStyles';
+import estilosLogin from "../Login/LoginStyles";
 import { auth } from "../firebase/connection";
-import { fetchSignInMethodsForEmail } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const Login = () => {
+const PasswordScreen = ({ route }) => {
   const navigation = useNavigation();
+  const { email } = route.params;
   const [fontsLoaded, fontError] = useFonts({
     "Poppins-Black": require("../../assets/fonts/Poppins-Black.ttf"),
   });
 
-  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
-  const handleEmailSubmit = async () => {
-    if (email.trim() !== "") {
+  const handleLogin = async () => {
+    if (senha.trim() !== "") {
       try {
-        const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-        if (signInMethods.length > 0) {
-          navigation.navigate('PasswordScreen', { email });
-        } else {
-          navigation.navigate('Register', { email });
-        }
+        await signInWithEmailAndPassword(auth, email, senha);
+        navigation.navigate('MainTab');
       } catch (error) {
-        alert("Erro ao verificar e-mail. Por favor, tente novamente.");
+        alert('Erro ao fazer login. Por favor, verifique sua senha.');
       }
     } else {
-      alert('Por favor, preencha seu e-mail.');
+      alert('Por favor, preencha sua senha.');
     }
   };
 
@@ -74,28 +71,25 @@ const Login = () => {
         </View>
         <View style={estilosLogin.loginContainer}>
           <View style={{width: '100%'}}>
-            <Text style={[estilosLogin.acessText, estilosLogin.logoText]}>Acesse</Text>
+            <Text style={[estilosLogin.acessText, estilosLogin.logoText]}>Bem-Vindo de Volta, {email}</Text>
           </View>
-          <Text style={estilosLogin.textLogin}>Faça login ou cadastre-se utilizando seu e-mail</Text>
-          <View style={estilosLogin.inputContainer}>
-            <FontAwesome name="envelope" size={20} color="#ccc" style={estilosLogin.inputIcon} />
-            <TextInput
-              style={estilosLogin.input}
-              placeholder="Digite seu e-mail"
-              placeholderTextColor="#A4A4A4"
-              onChangeText={text => setEmail(text)}
-              value={email}
-              keyboardType="email-address"
-            />
-          </View>
-          <TouchableOpacity style={estilosLogin.button} onPress={handleEmailSubmit}>
+          <Text style={estilosLogin.textLogin}>Insira sua senha para continuar</Text>
+          <TextInput
+            style={estilosLogin.input}
+            placeholder="Senha"
+            placeholderTextColor="#A4A4A4"
+            secureTextEntry
+            onChangeText={text => setSenha(text)}
+            value={senha}
+          />
+          <TouchableOpacity style={estilosLogin.button} onPress={handleLogin}>
             <LinearGradient
               colors={["#501794", "#3E70A1"]}
               style={estilosLogin.gradientBotao}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
-              <Text style={estilosLogin.buttonText}>Acessar</Text>
+              <Text style={estilosLogin.buttonText}>Entrar</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -104,4 +98,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default PasswordScreen;
