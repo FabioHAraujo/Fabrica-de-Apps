@@ -17,7 +17,7 @@ const MainTab = () => {
     // APENAS UMA DEPENDENCIA PRA ALTERAR A COR DA BARRA DE NAVEGAÇÃO
   useEffect(() => {
   async function setNavigationBarColor() {
-    await NavigationBar.setBackgroundColorAsync("#2e2926");
+    await NavigationBar.setBackgroundColorAsync("#123754");
     await NavigationBar.setButtonStyleAsync("light");
   }
 
@@ -30,9 +30,9 @@ const MainTab = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#2e2926", borderTopWidth: 0 },
-        tabBarActiveTintColor: "#ffffff",
-        tabBarInactiveTintColor: "#808080",
+        tabBarStyle: { backgroundColor: "#123754", borderTopWidth: 0 },
+        tabBarActiveTintColor: "#74C0FA",
+        tabBarInactiveTintColor: "#B2B2B2",
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
@@ -51,7 +51,7 @@ const MainTab = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Mapa" component={Mapa} />
       <Tab.Screen name="Cadastro" component={Cadastro} />
-      <Tab.Screen name="ExibirItems" component={ExibirItems} options={{
+      <Tab.Screen name="Itens Pendentes" component={ExibirItems} options={{
         tabBarIcon: ({ color, size }) => {
           return <FontAwesome name="list" color={color} size={size} />;
         }

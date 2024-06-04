@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/connection';
 
+
 const ExibirItems = () => {
   const [items, setItems] = useState([]);
 

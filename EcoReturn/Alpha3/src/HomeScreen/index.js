@@ -5,17 +5,22 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  StyleSheet,
   StatusBar,
   ImageBackground,
   ActivityIndicator,
   Image,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts } from "expo-font";
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/connection';
+import styles from './HomeScreenStyles'; // Importa os estilos
+import { useFocusEffect } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const [fontsLoaded, fontError] = useFonts({
+    "Poppins-Black": require("../../assets/fonts/Poppins-Black.ttf"),
+  });
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -29,6 +34,14 @@ const HomeScreen = () => {
       setDropdownVisible(false);
     }
   }, [search]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('light-content');
+      StatusBar.setBackgroundColor('transparent');
+      StatusBar.setTranslucent(true);
+    }, []) // array de dependências vazio para executar apenas uma vez
+  );
 
   const fetchResults = async () => {
     setLoading(true);
@@ -98,88 +111,11 @@ const HomeScreen = () => {
             />
           )}
         </View>
-        <Text style={styles.homeText}>Home Screen</Text>
+        <Text style={[styles.homeText, {    fontFamily: "Poppins-Black"}]}>Pesquise para Reciclar</Text>
       </ImageBackground>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  background: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: "80%",
-  },
-  gradientTop: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: "20%",
-  },
-  containerPesquisa: {
-    marginTop: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-    marginBottom: 16,
-    width: '85%',
-    borderRadius: 8,
-    backgroundColor: '#fff',
-  },
-  dropdown: {
-    width: '85%',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginTop: -10,
-    zIndex: 1,
-  },
-  item: {
-    flexDirection: 'row',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray',
-    alignItems: 'center',
-  },
-  itemImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 8,
-    marginRight: 16,
-  },
-  itemTextContainer: {
-    flex: 1,
-  },
-  itemName: {
-    color: '#000',
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  itemDescription: {
-    color: '#000',
-    fontSize: 12,
-  },
-  homeText: {
-    color: '#fff',
-    fontSize: 24,
-    textAlign: 'center',
-    marginTop: 20,
-  },
-});
 
 export default HomeScreen;

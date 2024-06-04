@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Mapa = () => {
   const [initialRegion, setInitialRegion] = useState(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+      StatusBar.setBackgroundColor('transparent');
+      StatusBar.setTranslucent(true);
+    }, []) // array de dependências vazio para executar apenas uma vez
+  );
 
   useEffect(() => {
     (async () => {
@@ -31,6 +40,11 @@ const Mapa = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
       {initialRegion && (
         <MapView
           style={styles.map}
