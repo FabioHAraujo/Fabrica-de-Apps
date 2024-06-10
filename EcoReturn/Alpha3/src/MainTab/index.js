@@ -6,7 +6,7 @@ import * as NavigationBar from "expo-navigation-bar";
 
 import HomeScreen from "../HomeScreen";
 import Mapa from "../Mapa";
-import Cadastro from "../Cadastro";
+import Cadastro from "../NovoItem";
 import ExibirItems from "../ExibirItens";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
