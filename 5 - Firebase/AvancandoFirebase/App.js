@@ -1,50 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar, StyleSheet, Text, View, TextInput, Button } from "react-native";
-import { database } from "./src/firebase/connection";
-import { set, get, ref, remove, update } from "firebase/database";
+import { StatusBar, StyleSheet, Text, View, TextInput, Button, FlatList, ActivityIndicator } from "react-native";
+import db from "./src/firebase/connection";
+import { set, get, ref, push, query, onValue, DataSnapshot } from "firebase/database";
+import Listagem from "./src/Listagem";
 
 export default function App() {
   const [nome, setNome] = useState("");
   const [cargo, setCargo] = useState("");
   const [idade, setIdade] = useState(0);
-  const [ultimo, setUltimo] = useState(0);
+  const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function dados() {
-      // await set(ref(database, 'tipo'), 'Pastel')
-      //
-      // await remove(ref(database, 'tipo'))
-      //
-      // DESTA FORMA FAZ UPDATE DO NÓ POR INTEIRO. CASO INSIRA SOMENTE CARGO, REMOVERIA O NOME POR EXEMPLO.
-      // await set(ref(database, 'usuarios/'+3), {
-      //   nome: 'Carluxo',
-      //   cargo: 'Programador'
-      // })
-      //
-      // Atualiza sem causar dano aos outros dados
-      // await update(ref(database, 'usuarios/'+3), {
-      //   nome: 'Caluxão'
-      // })
+
+  useEffect(()=>{
+    async function dados(){
+      const usuariosRef = ref(db, 'usuarios');
+      const buscaUsuarios = query(usuariosRef);
+
+      onValue(buscaUsuarios, (snapshot) => {
+        const usuariosList = [];
+        snapshot.forEach((childSnapshot) => {
+          const usuario = childSnapshot.val();
+          usuario.id = childSnapshot.key; // Adiciona o ID do usuário
+          usuariosList.push(usuario);
+          console.log(usuario.id)
+          console.log(usuario.cargo)
+        });
+        setUsuarios(usuariosList);
+        setLoading(false);
+      });
     }
-    dados();
-  }, []);
+    dados()
 
-  async function cadastrar(){
-    const valor = await get(ref(database, 'ultimo'))
-    setUltimo(valor.val())
-    setUltimo(ultimo+1)
-    console.log(ultimo)
-    
-    await set(ref(database, 'usuarios/' + ultimo), {
-      nome: nome,
-      idade: idade,
-      cargo: cargo
-    })
-    await set(ref(database, 'ultimo'), ultimo)
-    
-    // setNome('')
-    // setIdade(0)
-    // setCargo('')
+  },[])
+
+  async function cadastrar() {
+    console.log('Tentou')
+    try {
+      const novoUsuarioRef = push(ref(db, 'usuarios'));
+      await set(novoUsuarioRef, {
+        nome: nome,
+        idade: idade,
+        cargo: cargo
+      });
+      // Limpar os campos de entrada
+      setNome('');
+      setIdade(0);
+      setCargo('');
+    } catch (error) {
+      console.error("Erro ao cadastrar funcionário: ", error);
+    }
   }
 
   return (
@@ -54,24 +59,35 @@ export default function App() {
       <TextInput 
         style={styles.input}
         placeholder="EX: Fulano de Tal"
+        value={nome}
         onChangeText={(texto) => setNome(texto)}
       />
       <Text style={styles.texto}>Digite a idade do funcionário:</Text>
       <TextInput 
         style={styles.input}
         placeholder="EX: 25"
-        onChangeText={(idade) => setIdade(idade)}
+        keyboardType="numeric"
+        value={idade}
+        onChangeText={(texto) => setIdade(texto)}
       />
       <Text style={styles.texto}>Cargo que ocupará:</Text>
       <TextInput 
         style={styles.input}
         placeholder="EX: Assistente de operações"
-        onChangeText={(idade) => setCargo(idade)}
+        value={cargo}
+        onChangeText={(texto) => setCargo(texto)}
       />
       <Button 
         title="Cadastrar Funcionário"
         onPress={cadastrar}
       />
+
+      {loading ? (<ActivityIndicator color='black' size={45}/>) : (
+        <FlatList
+          data={usuarios}
+          renderItem={({item}) => (<Listagem data={item}/> )}
+        />
+      )}
     </View>
   );
 }
